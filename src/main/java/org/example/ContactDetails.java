@@ -87,5 +87,4 @@ public class ContactDetails {
     public void setEmail(String email) {
         this.email = email;
     }
-
 }

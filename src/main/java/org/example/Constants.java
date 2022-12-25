@@ -6,4 +6,5 @@ public class Constants {
     public static final String PASS = "root";
 
     public static final int ADD_CONTACT = 1;
+    public static final int SHOW_CONTACT = 2;
 }

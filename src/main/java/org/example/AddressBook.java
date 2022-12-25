@@ -2,7 +2,6 @@ package org.example;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -38,16 +37,16 @@ public class AddressBook {
             ContactDetails contactDetails = contactDetailsForm();
             contactDetailsArrayList.add(contactDetails);
         }
-        addContactDetailsToDatabase();
+        insertContactDetailsToDatabase();
         System.out.println("Data Added In Database...");
     }
 
-    public void addContactDetailsToDatabase() throws SQLException {
-        String INSERT_USERS_SQL = "INSERT INTO addressbook" + "  (firstname, lastname, address, city, state, zip, phone, email) VALUES " +
+    public void insertContactDetailsToDatabase() throws SQLException {
+        String INSERT_USERS_QUERY = "INSERT INTO addressbook" + "  (firstname, lastname, address, city, state, zip, phone, email) VALUES " +
                 " (?, ?, ?, ?, ?, ?, ?, ?);";
-        Connection connection = conn.getConnection();
 
-        PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL); {
+        Connection connection = conn.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_QUERY); {
             connection.setAutoCommit(false);
             for (Iterator< ContactDetails > iterator = contactDetailsArrayList.iterator(); iterator.hasNext();) {
                 ContactDetails contactDetails = iterator.next();
@@ -64,6 +63,18 @@ public class AddressBook {
             preparedStatement.executeBatch();
             connection.commit();
             connection.setAutoCommit(true);
+        }
+    }
+
+    public void retrieveContactDetailsFromDatabase() throws SQLException {
+        String RETRIEVAL_USERS_QUERY = "SELECT firstname, lastname, address, city, state, zip, phone, email FROM addressbook";
+        Connection connection = conn.getConnection();
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery(RETRIEVAL_USERS_QUERY);
+        while (rs.next()) {
+            System.out.println(rs.getString( "firstname") + " " + rs.getString("lastname") + " " +
+                    rs.getString("address") + " " + rs.getString("city") + " " + rs.getString("state") + " " +
+                    rs.getString("zip") + " " + rs.getString("phone") + " " + rs.getString("email"));
         }
     }
 }
