@@ -265,4 +265,22 @@ public class AddressBook {
         }
     }
 
+    public void deleteContactDetailsFromDatabase() throws SQLException {
+        Connection connection = conn.getConnection();
+        String DELETE_USERS_QUERY = "DELETE FROM addressbook WHERE firstname = ? AND lastname = ?";
+        System.out.print("Enter FirstName to Delete Record : ");
+        String keyFirstName = scnr.next();
+        System.out.print("Enter LastName to Delete Record : ");
+        String keyLastName = scnr.next();
+        PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USERS_QUERY);
+        connection.setAutoCommit(false);
+
+        preparedStatement.setString(1, keyFirstName);
+        preparedStatement.setString(2, keyLastName);
+        preparedStatement.execute();
+
+        connection.commit();
+        connection.setAutoCommit(true);
+        System.out.println("Record Deleted Successfully...");
+    }
 }

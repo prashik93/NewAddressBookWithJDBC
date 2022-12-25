@@ -12,7 +12,7 @@ public class Constants {
     public static final int ADD_CONTACT = 1;
     public static final int SHOW_CONTACT = 2;
     public static final int EDIT_CONTACT = 3;
-
+    public static final int DELETE_CONTACT = 4;
 
     // EDIT_CONTACT_DETAILS
     public static final int EDIT_FIRSTNAME = 1;
