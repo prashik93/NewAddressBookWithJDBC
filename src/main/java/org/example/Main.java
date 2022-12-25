@@ -14,7 +14,7 @@ public class Main {
         AddressBook addressBook = new AddressBook();
         while (true) {
             System.out.println("\nWhat do you want to do? ");
-            System.out.print("1.Add Contact Into Database\n2.Retrieve Contact From Database");
+            System.out.print("1.Add Contact Into Database\n2.Retrieve Contact From Database\n3.Update Contact In Database");
             System.out.print("\nEnter your choice : ");
             int userChoice = scnr.nextInt();
             switch (userChoice) {
@@ -22,9 +22,16 @@ public class Main {
                     addressBook.addContact();
                     break;
                 case Constants.SHOW_CONTACT:
-                    addressBook.retrieveContactDetailsFromDatabase();
+                    addressBook.retrieveAllContactDetailsFromDatabase();
                     break;
+                case Constants.EDIT_CONTACT:
+                    addressBook.updateContactDetailsFromDatabase();
+                    break;
+                case Constants.EXIT:
+                    break;
+                default : System.out.println("\nPlease give valid input...");
             }
         }
     }
+
 }
