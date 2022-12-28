@@ -13,6 +13,7 @@ public class Constants {
     public static final int SHOW_CONTACT = 2;
     public static final int EDIT_CONTACT = 3;
     public static final int DELETE_CONTACT = 4;
+    public static final int RETRIEVE_CONTACT_BY_CITY_OR_STATE = 5;
 
     // EDIT_CONTACT_DETAILS
     public static final int EDIT_FIRSTNAME = 1;

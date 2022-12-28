@@ -2,7 +2,6 @@ package org.example;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class AddressBook {
@@ -112,150 +111,61 @@ public class AddressBook {
         System.out.print("Enter your choice : ");
         int elementForEditing = scnr.nextInt();
 
-        Connection connection = conn.getConnection();
         switch (elementForEditing) {
             case Constants.EDIT_FIRSTNAME : {
                 System.out.print("Update First Name : ");
                 String updtFirstName = scnr.next().toLowerCase();
-
-                String UPDATE_FIRST_NAME = "UPDATE addressbook SET firstname = ? WHERE firstname = ? AND lastname = ?";
-                PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_FIRST_NAME);
-                connection.setAutoCommit(false);
-
-                preparedStatement.setString(1, updtFirstName);
-                preparedStatement.setString(2, keyFirstName);
-                preparedStatement.setString(3, keyLastName);
-                preparedStatement.addBatch();
-                preparedStatement.executeBatch();
-
-                connection.commit();
-                connection.setAutoCommit(true);
+                String columnName = "firstname";
+                updateSingleDetail(columnName, updtFirstName, keyFirstName, keyLastName);
                 break;
             }
             case Constants.EDIT_LASTNAME : {
                 System.out.print("Update Last Name : ");
                 String updtLastName = scnr.next().toLowerCase();
-
-                String UPDATE_LAST_NAME = "UPDATE addressbook SET lastname = ? WHERE firstname = ? AND lastname = ?";
-                PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_LAST_NAME);
-                connection.setAutoCommit(false);
-
-                preparedStatement.setString(1, updtLastName);
-                preparedStatement.setString(2, keyFirstName);
-                preparedStatement.setString(3, keyLastName);
-                preparedStatement.addBatch();
-                preparedStatement.executeBatch();
-
-                connection.commit();
-                connection.setAutoCommit(true);
+                String columnName = "lastName";
+                updateSingleDetail(columnName, updtLastName, keyFirstName, keyLastName);
                 break;
            }
             case Constants.EDIT_ADDRESS : {
                 System.out.print("Update Address : ");
                 String updtAddress = scnr.next().toLowerCase();
-
-                String UPDATE_ADDRESS = "UPDATE addressbook SET address = ? WHERE firstname= ? AND lastname = ?";
-                PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_ADDRESS);
-                connection.setAutoCommit(false);
-
-                preparedStatement.setString(1, updtAddress);
-                preparedStatement.setString(2, keyFirstName);
-                preparedStatement.setString(3, keyLastName);
-                preparedStatement.addBatch();
-                preparedStatement.executeBatch();
-
-                connection.commit();
-                connection.setAutoCommit(true);
+                String columnName = "address";
+                updateSingleDetail(columnName, updtAddress, keyFirstName, keyLastName);
                 break;
             }
             case Constants.EDIT_CITY : {
                 System.out.print("Update City Name : ");
                 String updtCity = scnr.next().toLowerCase();
-
-                String UPDATE_CITY = "UPDATE addressbook SET city = ? WHERE firstname = ? AND lastname = ?";
-                PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_CITY);
-                connection.setAutoCommit(false);
-
-                preparedStatement.setString(1, updtCity);
-                preparedStatement.setString(2, keyFirstName);
-                preparedStatement.setString(3, keyLastName);
-                preparedStatement.addBatch();
-                preparedStatement.executeBatch();
-
-                connection.commit();
-                connection.setAutoCommit(true);
+                String columnName = "city";
+                updateSingleDetail(columnName, updtCity, keyFirstName, keyLastName);
                 break;
            }
             case Constants.EDIT_STATE : {
                 System.out.print("Update State Name : ");
                 String updtState = scnr.next().toLowerCase();
-
-                String UPDATE_STATE = "UPDATE addressbook SET state = ? WHERE firstname = ? AND lastname = ?";
-                PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_STATE);
-                connection.setAutoCommit(false);
-
-                preparedStatement.setString(1, updtState);
-                preparedStatement.setString(2, keyFirstName);
-                preparedStatement.setString(3, keyLastName);
-                preparedStatement.addBatch();
-                preparedStatement.executeBatch();
-
-                connection.commit();
-                connection.setAutoCommit(true);
+                String columnName = "state";
+                updateSingleDetail(columnName, updtState, keyFirstName, keyLastName);
                 break;
             }
             case Constants.EDIT_ZIP : {
                 System.out.print("Update Zip Code : ");
                 String updtZip = scnr.next().toLowerCase();
-
-                String UPDATE_ZIP = "UPDATE addressbook SET zip = ? WHERE firstname = ? AND lastname = ?";
-                PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_ZIP);
-                connection.setAutoCommit(false);
-
-                preparedStatement.setString(1, updtZip);
-                preparedStatement.setString(2, keyFirstName);
-                preparedStatement.setString(3, keyLastName);
-                preparedStatement.addBatch();
-                preparedStatement.executeBatch();
-
-                connection.commit();
-                connection.setAutoCommit(false);
+                String columnName = "zip";
+                updateSingleDetail(columnName, updtZip, keyFirstName, keyLastName);
                 break;
             }
             case Constants.EDIT_PHONE : {
                 System.out.print("Update Phone : ");
                 String updtPhone = scnr.next().toLowerCase();
-
-                String UPDATE_PHONE = "UPDATE addressbook SET phone = ? WHERE firstname = ? AND lastname = ?";
-                PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_PHONE);
-                connection.setAutoCommit(false);
-
-                preparedStatement.setString(1, updtPhone);
-                preparedStatement.setString(2, keyFirstName);
-                preparedStatement.setString(3, keyLastName);
-                preparedStatement.addBatch();
-                preparedStatement.executeBatch();
-
-                connection.commit();
-                connection.setAutoCommit(false);
+                String columnName = "phone";
+                updateSingleDetail(columnName, updtPhone, keyFirstName, keyLastName);
                 break;
             }
             case Constants.EDIT_EMAIL : {
                 System.out.print("Update Email : ");
                 String updtEmail = scnr.next().toLowerCase();
-
-                String UPDATE_EMAIL = "UPDATE addressbook SET email = ? WHERE firstname = ? AND lastname = ?";
-                PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_EMAIL);
-                connection.setAutoCommit(false);
-
-                preparedStatement.setString(1, updtEmail);
-                preparedStatement.setString(2, keyFirstName);
-                preparedStatement.setString(3, keyLastName);
-                preparedStatement.addBatch();
-                preparedStatement.executeBatch();
-
-                connection.commit();
-                connection.setAutoCommit(false);
+                String columnName = "email";
+                updateSingleDetail(columnName, updtEmail, keyFirstName, keyLastName);
                 break;
             }
             case Constants.EXIT : {
@@ -263,6 +173,22 @@ public class AddressBook {
             }
             default : System.out.println("\nPlease give valid input!");
         }
+    }
+
+    public void updateSingleDetail(String columnName, String updateData, String keyFirstName, String keyLastName) throws SQLException {
+        Connection connection = conn.getConnection();
+        String UPDATE_FIRST_NAME = String.format("UPDATE addressbook SET %s = ? WHERE firstname = ? AND lastname = ?", columnName);
+        PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_FIRST_NAME);
+        connection.setAutoCommit(false);
+
+        preparedStatement.setString(1, updateData);
+        preparedStatement.setString(2, keyFirstName);
+        preparedStatement.setString(3, keyLastName);
+        preparedStatement.addBatch();
+        preparedStatement.executeBatch();
+
+        connection.commit();
+        connection.setAutoCommit(true);
     }
 
     public void deleteContactDetailsFromDatabase() throws SQLException {
@@ -282,5 +208,24 @@ public class AddressBook {
         connection.commit();
         connection.setAutoCommit(true);
         System.out.println("Record Deleted Successfully...");
+    }
+
+    public void retrievingPersonBelongingToCityOrState() throws SQLException {
+        System.out.print("\nEnter City/State : ");
+        String cityOrState = scnr.next();
+        System.out.print("Enter Name : ");
+        String name = scnr.next();
+        Connection connection = conn.getConnection();
+        String RETRIEVE_PERSON_BELONGING_TO_CITY_OR_STATE_QUERY = String.format("SELECT * FROM addressbook WHERE %s = ?", cityOrState);
+        PreparedStatement preparedStatement = connection.prepareStatement(RETRIEVE_PERSON_BELONGING_TO_CITY_OR_STATE_QUERY);
+        preparedStatement.setString(1, name);
+        ResultSet rs = preparedStatement.executeQuery();
+        while(rs.next()) {
+            System.out.println("{" + "FirstName" + " : " + rs.getString("firstname") + ", " + "LastName" + " : " + rs.getString("lastname") + ", " +
+                    "Address" + " : " + rs.getString("address") + ", " + "City" + " : " + rs.getString("city") + ", " +
+                    "State" + " : " + rs.getString("state") + ", " + "Zip" + " : " + rs.getString("zip") + ", " +
+                    "Phone" + " : " + rs.getString("phone") + ", " + "Email" + " : " + rs.getString("email") + "}");
+        }
+        connection.close();
     }
 }
