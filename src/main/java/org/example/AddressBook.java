@@ -244,5 +244,23 @@ public class AddressBook {
         while(rs.next()) {
             System.out.println("Count : " + (rs.getInt("countRow")));
         }
+        connection.close();
+    }
+
+    public void sortContactsByPersonsName() throws SQLException {
+        System.out.print("\nEnter City Name : ");
+        String cityName = scnr.next().toLowerCase();
+        Connection connection = conn.getConnection();
+        String SORT_CONTACTS_BY_PERSONS_NAME_FOR_A_GIVEN_CITY = "SELECT * FROM addressbook WHERE city = ? ORDER BY firstname ASC";
+        PreparedStatement preparedStatement = connection.prepareStatement(SORT_CONTACTS_BY_PERSONS_NAME_FOR_A_GIVEN_CITY);
+        preparedStatement.setString(1, cityName);
+        ResultSet rs = preparedStatement.executeQuery();
+        while(rs.next()) {
+            System.out.println("{" + "FirstName" + " : " + rs.getString("firstname") + ", " + "LastName" + " : " + rs.getString("lastname") + ", " +
+                    "Address" + " : " + rs.getString("address") + ", " + "City" + " : " + rs.getString("city") + ", " +
+                    "State" + " : " + rs.getString("state") + ", " + "Zip" + " : " + rs.getString("zip") + ", " +
+                    "Phone" + " : " + rs.getString("phone") + ", " + "Email" + " : " + rs.getString("email") + "}");
+        }
+        connection.close();
     }
 }
