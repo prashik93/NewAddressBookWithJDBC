@@ -18,6 +18,7 @@ public class Constants {
     public static final int SORT_CONTACTS_BY_PERSONS_NAME = 7;
     public static final int IDENTIFY_EACH_ADDRESSBOOK_BY_NAME_AND_CONTACT_TYPE = 8;
     public static final int CONTACTS_COUNT_BY_TYPE = 9;
+    public static final int ADD_CONTACT_TO_BOTH_FRIEND_AND_FAMILY = 10;
 
     // EDIT_CONTACT_DETAILS
     public static final int EDIT_FIRSTNAME = 1;

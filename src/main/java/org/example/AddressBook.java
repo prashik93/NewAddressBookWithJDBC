@@ -44,7 +44,7 @@ public class AddressBook {
     }
 
     public void insertContactDetailsToDatabase() throws SQLException {
-        String INSERT_USERS_QUERY = "INSERT INTO addressbook" + "  (firstname, lastname, address, city, state, zip, phone, email, contact_type) VALUES " +
+        String INSERT_USERS_QUERY = "INSERT INTO addressbook (firstname, lastname, address, city, state, zip, phone, email, contact_type) VALUES " +
                 " (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         Connection connection = conn.getConnection();
@@ -299,5 +299,14 @@ public class AddressBook {
             System.out.println("Count : " + (rs.getInt("countType")));
         }
         connection.close();
+    }
+
+    public void addContactToBothFriendAndFamily() throws SQLException {
+        String ADD_CONTACT_TO_BOTH_FRIEND_AND_FAMILY = "INSERT INTO addressbook VALUES('Prashik', 'Kamble', 'Sanglud', 'Akola', 'Mah', '444102', '8806187589', 'p@gmail.com', 'Friend')," +
+                                                                                     "('Prashik', 'Kamble', 'Sanglud', 'Akola', 'Mah', '444102', '8806187589', 'p@gmail.com', 'Family');";
+        Connection connection = conn.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(ADD_CONTACT_TO_BOTH_FRIEND_AND_FAMILY);
+        preparedStatement.execute();
+        retrieveAllContactDetailsFromDatabase();
     }
 }
