@@ -1,5 +1,6 @@
 package org.example;
 
+import java.awt.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -227,5 +228,21 @@ public class AddressBook {
                     "Phone" + " : " + rs.getString("phone") + ", " + "Email" + " : " + rs.getString("email") + "}");
         }
         connection.close();
+    }
+
+    public void contactsCountByCityOrState() throws SQLException {
+        System.out.print("\nEnter City/State : ");
+        String cityOrState = scnr.next().toLowerCase();
+        System.out.print("Enter Name : ");
+        String name = scnr.next().toLowerCase();
+        Connection connection = conn.getConnection();
+        String GET_COUNT_OF_CONTACTS_IN_CITY_OR_SATE = String.format("SELECT COUNT(?) AS countRow FROM addressbook WHERE %s = ?", cityOrState);
+        PreparedStatement preparedStatement = connection.prepareStatement(GET_COUNT_OF_CONTACTS_IN_CITY_OR_SATE);
+        preparedStatement.setString(1, cityOrState);
+        preparedStatement.setString(2, name);
+        ResultSet rs = preparedStatement.executeQuery();
+        while(rs.next()) {
+            System.out.println("Count : " + (rs.getInt("countRow")));
+        }
     }
 }
