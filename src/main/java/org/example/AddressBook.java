@@ -27,7 +27,9 @@ public class AddressBook {
         String phone = scnr.next().toLowerCase();
         System.out.print("Enter Email : ");
         String email = scnr.next().toLowerCase();
-        return new ContactDetails(firstName, lastName, address, city, state, zip, phone, email);
+        System.out.print("Enter Contact-Type : ");
+        String contact_type = scnr.next().toLowerCase();
+        return new ContactDetails(firstName, lastName, address, city, state, zip, phone, email, contact_type);
     }
 
     public void addContact() throws SQLException {
@@ -42,8 +44,8 @@ public class AddressBook {
     }
 
     public void insertContactDetailsToDatabase() throws SQLException {
-        String INSERT_USERS_QUERY = "INSERT INTO addressbook" + "  (firstname, lastname, address, city, state, zip, phone, email) VALUES " +
-                " (?, ?, ?, ?, ?, ?, ?, ?);";
+        String INSERT_USERS_QUERY = "INSERT INTO addressbook" + "  (firstname, lastname, address, city, state, zip, phone, email, contact_type) VALUES " +
+                " (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         Connection connection = conn.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_QUERY); {
@@ -57,6 +59,7 @@ public class AddressBook {
                 preparedStatement.setString(6, contactDetails.getZip());
                 preparedStatement.setString(7, contactDetails.getPhone());
                 preparedStatement.setString(8, contactDetails.getEmail());
+                preparedStatement.setString(9, contactDetails.getContact_type());
                 preparedStatement.addBatch();
             }
             preparedStatement.executeBatch();
@@ -66,7 +69,7 @@ public class AddressBook {
     }
 
     public void retrieveAllContactDetailsFromDatabase() throws SQLException {
-        String RETRIEVAL_USERS_QUERY = "SELECT firstname, lastname, address, city, state, zip, phone, email FROM addressbook";
+        String RETRIEVAL_USERS_QUERY = "SELECT * FROM addressbook";
         Connection connection = conn.getConnection();
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(RETRIEVAL_USERS_QUERY);
@@ -74,18 +77,19 @@ public class AddressBook {
             System.out.println("{" + "FirstName" + " : " + rs.getString( "firstname") + ", " + "LastName" + " : " +rs.getString("lastname") + ", " +
                     "Address" + " : " + rs.getString("address") + ", " + "City" + " : " + rs.getString("city") + ", " +
                     "State" + " : " + rs.getString("state") + ", " + "Zip" + " : " + rs.getString("zip") + ", " +
-                    "Phone" + " : " + rs.getString("phone") + ", " + "Email" + " : " + rs.getString("email") + "}");
+                    "Phone" + " : " + rs.getString("phone") + ", " + "Email" + " : " + rs.getString("email") + ", " +
+                    "Contact-Type" + " : " + rs.getString("contact_type") + "}");
         }
         connection.close();
     }
 
     public void updateContactDetailsFromDatabase() throws SQLException {
         Connection connection = conn.getConnection();
-        String RETRIEVAL_USERS_QUERY = "SELECT firstname, lastname, address, city, state, zip, phone, email FROM addressbook WHERE firstname = ? AND lastname = ?";
         System.out.print("Enter FirstName to Update Record : ");
         String keyFirstName = scnr.next();
         System.out.print("Enter LastName to Update Record : ");
         String keyLastName = scnr.next();
+        String RETRIEVAL_USERS_QUERY = "SELECT * FROM addressbook WHERE firstname = ? AND lastname = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(RETRIEVAL_USERS_QUERY);
         connection.setAutoCommit(false);
 
@@ -98,7 +102,8 @@ public class AddressBook {
             System.out.println("{" + "FirstName" + " : " + rs.getString( "firstname") + ", " + "LastName" + " : " +rs.getString("lastname") + ", " +
                     "Address" + " : " + rs.getString("address") + ", " + "City" + " : " + rs.getString("city") + ", " +
                     "State" + " : " + rs.getString("state") + ", " + "Zip" + " : " + rs.getString("zip") + ", " +
-                    "Phone" + " : " + rs.getString("phone") + ", " + "Email" + " : " + rs.getString("email") + "}");
+                    "Phone" + " : " + rs.getString("phone") + ", " + "Email" + " : " + rs.getString("email") + ", " +
+                    "Contact-Type" + " : " + rs.getString("contact_type") + "}");
         }
         connection.commit();
         connection.setAutoCommit(true);
@@ -108,7 +113,8 @@ public class AddressBook {
     public void updateContact(String keyFirstName, String keyLastName) throws SQLException {
         Scanner scnr = new Scanner(System.in);
         System.out.println("\nWhat do you want to edit? : ");
-        System.out.println("\n1.Edit First Name\n2.Edit Last Name\n3.Edit Address\n4.Edit City\n5.Edit State\n6.Edit Zip Code\n7.Edit Phone\n8.Edit Email\n9.Exit");
+        System.out.println("\n1.Edit First Name\n2.Edit Last Name\n3.Edit Address\n4.Edit City\n5.Edit State" +
+                "\n6.Edit Zip Code\n7.Edit Phone\n8.Edit Email\n9.Edit Contact-Type\n10.Exit");
         System.out.print("Enter your choice : ");
         int elementForEditing = scnr.nextInt();
 
@@ -169,6 +175,13 @@ public class AddressBook {
                 updateSingleDetail(columnName, updtEmail, keyFirstName, keyLastName);
                 break;
             }
+            case Constants.EDIT_CONTACT_TYPE: {
+                System.out.print("Update Contact-Type : ");
+                String updtContactType = scnr.next().toLowerCase();
+                String columnName = "contact_type";
+                updateSingleDetail(columnName, updtContactType, keyFirstName, keyLastName);
+                break;
+            }
             case Constants.EXIT : {
                 break;
             }
@@ -225,7 +238,8 @@ public class AddressBook {
             System.out.println("{" + "FirstName" + " : " + rs.getString("firstname") + ", " + "LastName" + " : " + rs.getString("lastname") + ", " +
                     "Address" + " : " + rs.getString("address") + ", " + "City" + " : " + rs.getString("city") + ", " +
                     "State" + " : " + rs.getString("state") + ", " + "Zip" + " : " + rs.getString("zip") + ", " +
-                    "Phone" + " : " + rs.getString("phone") + ", " + "Email" + " : " + rs.getString("email") + "}");
+                    "Phone" + " : " + rs.getString("phone") + ", " + "Email" + " : " + rs.getString("email") + ", " +
+                    "Contact-Type" + " : " + rs.getString("contact_type") + "}");
         }
         connection.close();
     }
@@ -259,8 +273,17 @@ public class AddressBook {
             System.out.println("{" + "FirstName" + " : " + rs.getString("firstname") + ", " + "LastName" + " : " + rs.getString("lastname") + ", " +
                     "Address" + " : " + rs.getString("address") + ", " + "City" + " : " + rs.getString("city") + ", " +
                     "State" + " : " + rs.getString("state") + ", " + "Zip" + " : " + rs.getString("zip") + ", " +
-                    "Phone" + " : " + rs.getString("phone") + ", " + "Email" + " : " + rs.getString("email") + "}");
+                    "Phone" + " : " + rs.getString("phone") + ", " + "Email" + " : " + rs.getString("email") + ", " +
+                    "Contact-Type" + " : " + rs.getString("contact_type") + "}");
         }
+        connection.close();
+    }
+
+    public void identifyEachAddressBookWithNameAndType() throws SQLException {
+        Connection connection = conn.getConnection();
+        String ADD_CONTACT_TYPE_IN_DATABASE_USING_ALTER_QUERY = "ALTER TABLE addressbook ADD contact_type VARCHAR(40) not null default 'Family' ";
+        PreparedStatement preparedStatement = connection.prepareStatement(ADD_CONTACT_TYPE_IN_DATABASE_USING_ALTER_QUERY);
+        preparedStatement.execute();
         connection.close();
     }
 }
