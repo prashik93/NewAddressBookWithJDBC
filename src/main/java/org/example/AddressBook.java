@@ -286,4 +286,18 @@ public class AddressBook {
         preparedStatement.execute();
         connection.close();
     }
+
+    public void countContactsByType() throws SQLException {
+        System.out.print("\nEnter Contact-Type : ");
+        String contactType = scnr.next().toLowerCase();
+        Connection connection = conn.getConnection();
+        String COUNT_CONTACTS_BY_TYPE = "SELECT COUNT(contact_type) AS countType FROM addressbook WHERE contact_type = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(COUNT_CONTACTS_BY_TYPE);
+        preparedStatement.setString(1, contactType);
+        ResultSet rs = preparedStatement.executeQuery();
+        while(rs.next()) {
+            System.out.println("Count : " + (rs.getInt("countType")));
+        }
+        connection.close();
+    }
 }

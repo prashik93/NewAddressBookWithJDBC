@@ -16,7 +16,7 @@ public class Main {
             System.out.println("\nWhat do you want to do? ");
             System.out.print("1.Add Contact Into Database\n2.Retrieve Contact From Database\n3.Update Contact In Database" +
                     "\n4.Delete Contact\n5.Retrieve Contact By City Or State\n6.Contacts Count By City Or State" +
-                    "\n7.Sort Contact By Persons Name\n8.Identify Each Address Book With Name And Type");
+                    "\n7.Sort Contact By Persons Name\n8.Identify Each Address Book With Name And Type\n9.Contacts Count By Type");
             System.out.print("\nEnter your choice : ");
             int userChoice = scnr.nextInt();
             switch (userChoice) {
@@ -43,6 +43,9 @@ public class Main {
                     break;
                 case Constants.IDENTIFY_EACH_ADDRESSBOOK_BY_NAME_AND_CONTACT_TYPE:
                     addressBook.identifyEachAddressBookWithNameAndType();
+                    break;
+                case Constants.CONTACTS_COUNT_BY_TYPE:
+                    addressBook.countContactsByType();
                     break;
                 case Constants.EXIT:
                     break;

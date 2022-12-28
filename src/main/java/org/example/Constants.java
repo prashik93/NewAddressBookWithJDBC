@@ -17,6 +17,7 @@ public class Constants {
     public static final int CONTACTS_COUNT_BY_CITY_OR_STATE = 6;
     public static final int SORT_CONTACTS_BY_PERSONS_NAME = 7;
     public static final int IDENTIFY_EACH_ADDRESSBOOK_BY_NAME_AND_CONTACT_TYPE = 8;
+    public static final int CONTACTS_COUNT_BY_TYPE = 9;
 
     // EDIT_CONTACT_DETAILS
     public static final int EDIT_FIRSTNAME = 1;
