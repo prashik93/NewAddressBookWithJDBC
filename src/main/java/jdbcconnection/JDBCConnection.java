@@ -1,4 +1,6 @@
-package org.example;
+package jdbcconnection;
+
+import constants.Constants;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

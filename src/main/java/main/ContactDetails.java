@@ -1,4 +1,4 @@
-package org.example;
+package main;
 
 public class ContactDetails {
     private String firstName;
@@ -9,12 +9,11 @@ public class ContactDetails {
     private String zip;
     private String phone;
     private String email;
-    private String contact_type;
 
     public ContactDetails() {
     }
 
-    public ContactDetails(String firstName, String lastName, String address, String city, String state, String zip, String phone, String email, String contact_type) {
+    public ContactDetails(String firstName, String lastName, String address, String city, String state, String zip, String phone, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -23,7 +22,6 @@ public class ContactDetails {
         this.zip = zip;
         this.phone = phone;
         this.email = email;
-        this.contact_type = contact_type;
     }
 
     public String getFirstName() {
@@ -88,13 +86,5 @@ public class ContactDetails {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getContact_type() {
-        return contact_type;
-    }
-
-    public void setContact_type(String contact_type) {
-        this.contact_type = contact_type;
     }
 }

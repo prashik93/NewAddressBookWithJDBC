@@ -1,4 +1,6 @@
-package org.example;
+package main;
+
+import constants.Constants;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -25,7 +27,7 @@ public class Main {
                     addressBook.addContact();
                     break;
                 case Constants.SHOW_CONTACT:
-                    addressBook.retrieveAllContactDetailsFromDatabase();
+                    addressBook.retrieveAllContactsFromDatabase();
                     break;
                 case Constants.EDIT_CONTACT:
                     addressBook.updateContactDetailsFromDatabase();
